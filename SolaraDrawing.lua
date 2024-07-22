@@ -1,3 +1,47 @@
+if isfile("bbotui.font") then
+	delfile("bbotui.font")
+end
+
+writefile("bbotui.ttf", game:HttpGet("https://github.com/chrissimpkins/codeface/raw/master/fonts/proggy-clean/ProggyClean.ttf"))
+
+-- // Custom Font
+do
+	getsynasset = getcustomasset or getsynasset
+	Font = setreadonly(Font, false);
+	function Font:Register(Name, Weight, Style, Asset)
+		if not isfile(Name .. ".font") then
+			if not isfile(Asset.Id) then
+				writefile(Asset.Id, Asset.Font);
+			end;
+			--
+			local Data = {
+				name = Name,
+				faces = {{
+					name = "Regular",
+					weight = Weight,
+					style = Style,
+					assetId = getsynasset(Asset.Id);
+				}}
+			};
+			--
+			writefile(Name .. ".font", game:GetService("HttpService"):JSONEncode(Data));
+			return getsynasset(Name .. ".font");
+		else 
+			warn("Font already registered");
+		end;
+	end;
+	--
+	function Font:GetRegistry(Name)
+		if isfile(Name .. ".font") then
+			return getsynasset(Name .. ".font");
+		end;
+	end;
+
+	Font:Register("bbotui", 400, "normal", {Id = "bbotui.ttf", Font = ""});
+end
+
+local realfont = Font.new(Font:GetRegistry("bbotui"))
+
 local coreGui = game:GetService("CoreGui")
 -- objects
 local camera = workspace.CurrentCamera
@@ -31,7 +75,7 @@ local baseDrawingObj = setmetatable({
 	end
 })
 local drawingFontsEnum = {
-	[0] = Font.fromEnum(Enum.Font.Roboto),
+	[0] = realfont,
 	[1] = Font.fromEnum(Enum.Font.Legacy),
 	[2] = Font.fromEnum(Enum.Font.SourceSans),
 	[3] = Font.fromEnum(Enum.Font.RobotoMono),
