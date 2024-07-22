@@ -76,9 +76,9 @@ local baseDrawingObj = setmetatable({
 })
 local drawingFontsEnum = {
 	[0] = realfont,
-	[1] = Font.fromEnum(Enum.Font.Legacy),
-	[2] = Font.fromEnum(Enum.Font.SourceSans),
-	[3] = Font.fromEnum(Enum.Font.RobotoMono),
+	[1] = realfont,
+	[2] = realfont,
+	[3] = realfont,
 }
 -- function
 local function getFontFromIndex(fontIndex: number): Font
@@ -91,10 +91,10 @@ end
 -- main
 local DrawingLib = {}
 DrawingLib.Fonts = {
-	["UI"] = 0,
-	["System"] = 1,
-	["Plex"] = 2,
-	["Monospace"] = 3
+	["UI"] = realfont,
+	["System"] = realfont,
+	["Plex"] = realfont,
+	["Monospace"] = realfont
 }
 
 function DrawingLib.new(drawingType)
