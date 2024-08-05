@@ -360,7 +360,7 @@ function DrawingLib.new(drawingType)
 		local imageFrame = Instance.new("ImageLabel")
 		imageFrame.Name = drawingIndex
 		imageFrame.BorderSizePixel = 0
-		imageFrame.ScaleType = Enum.ScaleType.Stretch
+		imageFrame.ScaleType = Enum.ScaleType.Fit
 		imageFrame.BackgroundTransparency = 1
 
 		imageFrame.Visible = imageObj.Visible
